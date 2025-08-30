@@ -1,1 +1,25 @@
+# OS artifacts
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+
+# Vendor/Dependencies
+/vendor/
+/node_modules/
+
+# Local configs with secrets
+/config/database.php
+/config/database.local.php
+/helpers/EmailService.local.php
+
+# Logs
+*.log
+/storage/logs/
+
+# Composer/npm lock if you don't want to commit
+composer.lock
+package-lock.json
+pnpm-lock.yaml
 node_modules

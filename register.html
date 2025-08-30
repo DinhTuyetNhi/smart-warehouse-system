@@ -2,14 +2,10 @@
 <html lang="en">
 
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>SB Admin 2 - Register</title>
+    <title>Smart Warehouse - Đăng ký kho</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -19,72 +15,171 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
+    
+    <style>
+        .register-form {
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        .form-section {
+            background: #f8f9fc;
+            border-left: 4px solid #4e73df;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        .section-title {
+            color: #4e73df;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .username-preview {
+            background: #e3f2fd;
+            border: 2px dashed #2196f3;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            font-family: monospace;
+            color: #1976d2;
+            font-weight: bold;
+        }
+    </style>
 </head>
 
 <body class="bg-gradient-primary">
-
     <div class="container">
-
-        <div class="card o-hidden border-0 shadow-lg my-5">
-            <div class="card-body p-0">
-                <!-- Nested Row within Card Body -->
-                <div class="row">
-                    <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
-                    <div class="col-lg-7">
-                        <div class="p-5">
-                            <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+        <div class="row justify-content-center">
+            <div class="col-xl-10 col-lg-12 col-md-9">
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                    <div class="card-body p-0">
+                        <div class="row">
+                            <div class="col-lg-6 d-none d-lg-block">
+                                <div class="p-5 d-flex align-items-center justify-content-center h-100 bg-gradient-info">
+                                    <div class="text-center text-white">
+                                        <i class="fas fa-warehouse fa-5x mb-4"></i>
+                                        <h4>Smart Warehouse System</h4>
+                                        <p>Hệ thống quản lý kho thông minh</p>
+                                        <hr class="my-4">
+                                        <p class="mb-0">Đăng ký để tạo kho và quản lý hàng hóa của bạn</p>
+                                    </div>
+                                </div>
                             </div>
-                            <form class="user">
-                                <div class="form-group row">
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user" id="exampleFirstName"
-                                            placeholder="First Name">
+                            <div class="col-lg-6">
+                                <div class="p-5 register-form">
+                                    <div class="text-center">
+                                        <h1 class="h4 text-gray-900 mb-2">Đăng ký kho mới</h1>
+                                        <p class="mb-4 text-muted">Tạo tài khoản quản lý kho của bạn</p>
                                     </div>
-                                    <div class="col-sm-6">
-                                        <input type="text" class="form-control form-control-user" id="exampleLastName"
-                                            placeholder="Last Name">
+                                    
+                                    <!-- Alert messages -->
+                                    <div id="alert-container"></div>
+                                    
+                                    <form class="user" id="registerForm">
+                                        <!-- Thông tin kho -->
+                                        <div class="form-section">
+                                            <div class="section-title">
+                                                <i class="fas fa-warehouse mr-2"></i>Thông tin kho
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <input type="text" class="form-control form-control-user" 
+                                                    id="warehouse_name" name="warehouse_name" required
+                                                    placeholder="Tên kho *">
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <textarea class="form-control" id="warehouse_address" 
+                                                    name="warehouse_address" required rows="3"
+                                                    placeholder="Địa chỉ kho *" style="border-radius: 10rem; padding: 0.75rem 1rem;"></textarea>
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <input type="tel" class="form-control form-control-user" 
+                                                    id="warehouse_phone" name="warehouse_phone" required
+                                                    placeholder="Số điện thoại kho *">
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <input type="email" class="form-control form-control-user" 
+                                                    id="warehouse_email" name="warehouse_email" required
+                                                    placeholder="Email kho *">
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Thông tin quản lý -->
+                                        <div class="form-section">
+                                            <div class="section-title">
+                                                <i class="fas fa-user-shield mr-2"></i>Thông tin quản lý (Admin)
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <input type="text" class="form-control form-control-user" 
+                                                    id="admin_name" name="admin_name" required
+                                                    placeholder="Họ tên quản lý *">
+                                            </div>
+                                            
+                                            <!-- Hiển thị username sẽ được tạo -->
+                                            <div class="form-group">
+                                                <label class="small text-muted">
+                                                    <i class="fas fa-user mr-1"></i>Tên đăng nhập (tự động tạo):
+                                                </label>
+                                                <div class="username-preview" id="username-preview">
+                                                    <i class="fas fa-magic mr-2"></i>Nhập thông tin để xem username...
+                                                </div>
+                                                <small class="text-muted">
+                                                    Quy tắc: Chữ cái đầu họ tên + Mã kho + 3 số cuối ID
+                                                </small>
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <input type="password" class="form-control form-control-user"
+                                                    id="password" name="password" required
+                                                    placeholder="Mật khẩu *">
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <input type="password" class="form-control form-control-user"
+                                                    id="confirm_password" name="confirm_password" required
+                                                    placeholder="Xác nhận mật khẩu *">
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Yêu cầu mật khẩu -->
+                                        <div class="alert alert-info">
+                                            <small>
+                                                <i class="fas fa-info-circle mr-1"></i>
+                                                <strong>Yêu cầu mật khẩu:</strong><br>
+                                                • Tối thiểu 8 ký tự<br>
+                                                • Có ít nhất 1 chữ hoa, 1 chữ thường<br>
+                                                • Có ít nhất 1 số và 1 ký tự đặc biệt
+                                            </small>
+                                        </div>
+                                        
+                                        <div class="alert alert-warning">
+                                            <small>
+                                                <i class="fas fa-exclamation-triangle mr-1"></i>
+                                                <strong>Lưu ý:</strong> Tài khoản được tạo sẽ có quyền <strong>Admin</strong> 
+                                                để quản lý kho này. Tên đăng nhập sẽ được hệ thống tự động tạo theo quy tắc.
+                                            </small>
+                                        </div>
+                                        
+                                        <button type="submit" class="btn btn-primary btn-user btn-block" id="registerBtn">
+                                            <i class="fas fa-user-plus mr-2"></i>
+                                            Đăng ký
+                                        </button>
+                                    </form>
+                                    
+                                    <hr>
+                                    <div class="text-center">
+                                        <a class="small" href="login.html">Đã có tài khoản? Đăng nhập!</a>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <input type="email" class="form-control form-control-user" id="exampleInputEmail"
-                                        placeholder="Email Address">
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="password" class="form-control form-control-user"
-                                            id="exampleInputPassword" placeholder="Password">
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <input type="password" class="form-control form-control-user"
-                                            id="exampleRepeatPassword" placeholder="Repeat Password">
-                                    </div>
-                                </div>
-                                <a href="login.html" class="btn btn-primary btn-user btn-block">
-                                    Register Account
-                                </a>
-                                <hr>
-                                <a href="index.html" class="btn btn-google btn-user btn-block">
-                                    <i class="fab fa-google fa-fw"></i> Register with Google
-                                </a>
-                                <a href="index.html" class="btn btn-facebook btn-user btn-block">
-                                    <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
-                                </a>
-                            </form>
-                            <hr>
-                            <div class="text-center">
-                                <a class="small" href="forgot-password.html">Forgot Password?</a>
-                            </div>
-                            <div class="text-center">
-                                <a class="small" href="login.html">Already have an account? Login!</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
 
     <!-- Bootstrap core JavaScript-->
@@ -97,6 +192,214 @@
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
 
+    <!-- Register script -->
+    <script>
+        $(document).ready(function() {
+            // Cập nhật preview username khi user nhập thông tin
+            $('#warehouse_name, #admin_name').on('input', function() {
+                updateUsernamePreview();
+            });
+            
+            $('#registerForm').on('submit', function(e) {
+                e.preventDefault();
+                
+                // Lấy dữ liệu từ form
+                const formData = {
+                    warehouse_name: $('#warehouse_name').val().trim(),
+                    warehouse_address: $('#warehouse_address').val().trim(),
+                    warehouse_phone: $('#warehouse_phone').val().trim(),
+                    warehouse_email: $('#warehouse_email').val().trim(),
+                    admin_name: $('#admin_name').val().trim(),
+                    password: $('#password').val(),
+                    confirm_password: $('#confirm_password').val()
+                };
+                
+                // Validate phía client
+                if (!validateForm(formData)) {
+                    return;
+                }
+                
+                $('#registerBtn').prop('disabled', true).html('<i class="fas fa-spinner fa-spin mr-2"></i>Đang đăng ký...');
+                
+                $.ajax({
+                    url: 'auth/register_process.php',
+                    type: 'POST',
+                    data: formData,
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.success) {
+                            let alertType = response.data.email_sent ? 'success' : 'warning';
+                            let emailIcon = response.data.email_sent ? '📧' : '⚠️';
+                            
+                            showAlert(`
+                                ${emailIcon} ${response.message}<br>
+                                <strong>Username được tạo:</strong> ${response.data.username}<br>
+                                <div class="mt-2 p-2 bg-light border-left border-primary">
+                                    <small class="text-muted">
+                                        ${response.data.email_sent 
+                                            ? '✅ Email xác nhận đã được gửi đến: ' + response.data.email 
+                                            : '⚠️ Có lỗi khi gửi email. Vui lòng liên hệ support.'}
+                                    </small>
+                                </div>
+                            `, alertType);
+                            
+                            setTimeout(function() {
+                                window.location.href = 'login.html';
+                            }, 5000);
+                        } else {
+                            showAlert(response.message, 'danger');
+                        }
+                    },
+                    error: function(xhr) {
+                        const response = xhr.responseJSON || {message: 'Có lỗi xảy ra. Vui lòng thử lại!'};
+                        showAlert(response.message, 'danger');
+                    },
+                    complete: function() {
+                        $('#registerBtn').prop('disabled', false).html('<i class="fas fa-user-plus mr-2"></i>Đăng ký');
+                    }
+                });
+            });
+        });
+        
+        function updateUsernamePreview() {
+            const warehouseName = $('#warehouse_name').val().trim();
+            const adminName = $('#admin_name').val().trim();
+            
+            if (warehouseName && adminName) {
+                const username = generateUsernamePreview(adminName, warehouseName);
+                $('#username-preview').html(`<i class="fas fa-user mr-2"></i>${username}xxx`);
+            } else {
+                $('#username-preview').html('<i class="fas fa-magic mr-2"></i>Nhập thông tin để xem username...');
+            }
+        }
+        
+        function generateUsernamePreview(fullName, warehouseName) {
+            // Tạo chữ cái đầu từ họ tên
+            const nameInitials = generateNameInitials(fullName);
+            
+            // Tạo mã kho từ tên kho
+            const warehouseCode = generateWarehouseCode(warehouseName);
+            
+            return nameInitials + warehouseCode;
+        }
+        
+        function generateNameInitials(fullName) {
+            // Loại bỏ dấu và chuyển thành chữ thường
+            const normalized = removeVietnameseTones(fullName).toLowerCase();
+            
+            // Tách thành các từ
+            const words = normalized.split(/\s+/).filter(word => word.length > 0);
+            
+            if (words.length === 0) return '';
+            
+            // Lấy chữ cái đầu của từng từ
+            let initials = '';
+            for (let i = 0; i < words.length - 1; i++) { // Lấy chữ cái đầu của họ, tên đệm
+                initials += words[i].charAt(0);
+            }
+            
+            // Thêm tên đầy đủ không khoảng trắng
+            if (words.length > 0) {
+                initials += words[words.length - 1]; // Tên cuối
+            }
+            
+            return initials;
+        }
+        
+        function generateWarehouseCode(warehouseName) {
+            // Loại bỏ dấu và khoảng trắng
+            return removeVietnameseTones(warehouseName)
+                .toLowerCase()
+                .replace(/\s+/g, '')
+                .replace(/[^a-z0-9]/g, '');
+        }
+        
+        function removeVietnameseTones(str) {
+            const accents = {
+                'à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ': 'a',
+                'è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ': 'e',
+                'ì|í|ị|ỉ|ĩ': 'i',
+                'ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ': 'o',
+                'ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ': 'u',
+                'ỳ|ý|ỵ|ỷ|ỹ': 'y',
+                'đ': 'd',
+                'À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ': 'A',
+                'È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|Ễ': 'E',
+                'Ì|Í|Ị|Ỉ|Ĩ': 'I',
+                'Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ': 'O',
+                'Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ': 'U',
+                'Ỳ|Ý|Ỵ|Ỷ|Ỹ': 'Y',
+                'Đ': 'D'
+            };
+            
+            for (let pattern in accents) {
+                str = str.replace(new RegExp(pattern, 'g'), accents[pattern]);
+            }
+            
+            return str;
+        }
+        
+        function validateForm(data) {
+            // Kiểm tra các trường bắt buộc (loại bỏ username)
+            const requiredFields = ['warehouse_name', 'warehouse_address', 'warehouse_phone', 'warehouse_email', 'admin_name', 'password'];
+            for (let field of requiredFields) {
+                if (!data[field]) {
+                    showAlert('Vui lòng điền đầy đủ thông tin bắt buộc!', 'warning');
+                    return false;
+                }
+            }
+            
+            // Kiểm tra email format
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(data.warehouse_email)) {
+                showAlert('Email không hợp lệ!', 'warning');
+                return false;
+            }
+            
+            // Kiểm tra số điện thoại
+            const phoneRegex = /^[0-9]{10,11}$/;
+            if (!phoneRegex.test(data.warehouse_phone)) {
+                showAlert('Số điện thoại không hợp lệ!', 'warning');
+                return false;
+            }
+            
+            // Kiểm tra mật khẩu
+            if (data.password !== data.confirm_password) {
+                showAlert('Mật khẩu xác nhận không khớp!', 'warning');
+                return false;
+            }
+            
+            if (!isStrongPassword(data.password)) {
+                showAlert('Mật khẩu không đủ mạnh! Vui lòng kiểm tra yêu cầu.', 'warning');
+                return false;
+            }
+            
+            return true;
+        }
+        
+        function isStrongPassword(password) {
+            if (password.length < 8) return false;
+            if (!/[a-z]/.test(password)) return false;
+            if (!/[A-Z]/.test(password)) return false;
+            if (!/[0-9]/.test(password)) return false;
+            if (!/[^a-zA-Z0-9]/.test(password)) return false;
+            return true;
+        }
+        
+        function showAlert(message, type) {
+            const alertHtml = `
+                <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+                    ${message}
+                    <button type="button" class="close" data-dismiss="alert">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            `;
+            $('#alert-container').html(alertHtml);
+            
+            // Scroll to top để hiển thị alert
+            $('.register-form').scrollTop(0);
+        }
+    </script>
 </body>
-
 </html>
