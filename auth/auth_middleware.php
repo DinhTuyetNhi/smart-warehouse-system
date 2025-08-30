@@ -17,9 +17,17 @@ class AuthMiddleware {
         
         $authenticated = false;
         
-        // Check session
-        if (isset($_SESSION['session_token']) && isset($_SESSION['user_id'])) {
-            if ($this->user->validateSession($_SESSION['session_token'])) {
+        // Check existing simple session (fallback used by current app)
+        if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true && isset($_SESSION['user_id'])) {
+            if (method_exists($this->user, 'loadById') && $this->user->loadById((int)$_SESSION['user_id'])) {
+                $authenticated = true;
+                $_SESSION['last_activity'] = time();
+            }
+        }
+
+        // Check token-based session (legacy)
+        if (!$authenticated && isset($_SESSION['session_token']) && isset($_SESSION['user_id'])) {
+            if (method_exists($this->user, 'validateSession') && $this->user->validateSession($_SESSION['session_token'])) {
                 $authenticated = true;
                 $_SESSION['last_activity'] = time();
             }
@@ -49,8 +57,11 @@ class AuthMiddleware {
         }
         
         // Check role if required
-        if ($required_role && $_SESSION['role'] !== $required_role) {
-            $this->accessDenied();
+        if ($required_role) {
+            $role = $_SESSION['role'] ?? null;
+            if (!$role || ($role !== $required_role && !in_array($role, (array)$required_role))) {
+                $this->accessDenied();
+            }
         }
         
         // Check session timeout (24 hours)
@@ -81,7 +92,7 @@ class AuthMiddleware {
     }
     
     public function logout() {
-        if (isset($_SESSION['session_token'])) {
+        if (isset($_SESSION['session_token']) && method_exists($this->user, 'logout')) {
             $this->user->logout($_SESSION['session_token']);
         }
         

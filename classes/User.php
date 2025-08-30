@@ -109,6 +109,17 @@ class User {
         $stmt->execute();
     }
 
+    public function loadById(int $id): bool {
+        $stmt = $this->conn->prepare("SELECT * FROM {$this->table_name} WHERE user_id = :id");
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        if ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            foreach ($row as $k=>$v) { $this->$k = $v; }
+            return true;
+        }
+        return false;
+    }
+
     public static function hashPassword($password) {
         return password_hash($password, PASSWORD_DEFAULT);
     }
